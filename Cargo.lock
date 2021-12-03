@@ -3714,6 +3714,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-nicks"
+version = "4.0.0-dev"
+source = "git+https://github.com/paritytech/substrate.git?tag=devhub/latest#352c46a648a5f2d4526e790a184daa4a1ffdb3bf"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-randomness-collective-flip"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?tag=devhub/latest#352c46a648a5f2d4526e790a184daa4a1ffdb3bf"
@@ -6817,6 +6831,7 @@ dependencies = [
  "pallet-aura",
  "pallet-balances",
  "pallet-grandpa",
+ "pallet-nicks",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
  "pallet-template",
