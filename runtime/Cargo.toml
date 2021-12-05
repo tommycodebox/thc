@@ -124,6 +124,24 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'devhub/latest'
 version = '4.0.0-dev'
 
+[dependencies.pallet-session]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
+
+[dependencies.pallet-staking]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
+
+[dependencies.pallet-staking-reward-curve]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
+
 [dependencies.scale-info]
 default-features = false
 features = ['derive']
@@ -146,6 +164,24 @@ default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 tag = 'devhub/latest'
 version = '0.10.0-dev'
+
+[dependencies.sp-consensus-babe]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '0.10.0-dev'
+
+[dependencies.sp-staking]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
+
+[dependencies.sp-npos-elections]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
 
 [dependencies.sp-core]
 default-features = false
@@ -225,9 +261,14 @@ std = [
     'pallet-transaction-payment-rpc-runtime-api/std',
     'pallet-transaction-payment/std',
     'pallet-nicks/std',
+    'pallet-staking/std',
+    'pallet-session/std',
     'sp-api/std',
     'sp-block-builder/std',
     'sp-consensus-aura/std',
+    'sp-consensus-babe/std',
+    'sp-staking/std',
+    'sp-npos-elections/std',
     'sp-core/std',
     'sp-inherents/std',
     'sp-offchain/std',
