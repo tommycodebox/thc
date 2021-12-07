@@ -1,12 +1,12 @@
-use thc_runtime::{
-	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig, Signature, SudoConfig,
-	SystemConfig, WASM_BINARY,
-};
 use sc_service::ChainType;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::{sr25519, Pair, Public};
 use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{IdentifyAccount, Verify};
+use thc_runtime::{
+	AccountId, AuraConfig, BalancesConfig, CouncilConfig, GenesisConfig, GrandpaConfig, Signature,
+	SudoConfig, SystemConfig, TechnicalCommitteeConfig, WASM_BINARY,
+};
 
 // The URL for the telemetry server.
 // const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
@@ -134,19 +134,18 @@ fn testnet_genesis(
 	let mill: u128 = (10 as u128).pow(6);
 	let initial_balance = 420 * mill * shift;
 
+	let num_endowed_accounts = endowed_accounts.len();
+
 	GenesisConfig {
-		system: SystemConfig {
-			// Add Wasm runtime to storage.
-			code: wasm_binary.to_vec(),
-			changes_trie_config: Default::default(),
+		assets: Default::default(),
+		aura: AuraConfig {
+			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),
 		},
 		balances: BalancesConfig {
 			// Configure endowed accounts with initial balance of 1 << 60.
 			balances: endowed_accounts.iter().cloned().map(|k| (k, initial_balance)).collect(),
 		},
-		aura: AuraConfig {
-			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),
-		},
+		council: CouncilConfig::default(),
 		grandpa: GrandpaConfig {
 			authorities: initial_authorities.iter().map(|x| (x.1.clone(), 1)).collect(),
 		},
@@ -154,6 +153,23 @@ fn testnet_genesis(
 			// Assign network admin rights.
 			key: root_key,
 		},
+		scheduler: Default::default(),
+		system: SystemConfig {
+			// Add Wasm runtime to storage.
+			code: wasm_binary.to_vec(),
+			changes_trie_config: Default::default(),
+		},
 		transaction_payment: Default::default(),
+		technical_committee: TechnicalCommitteeConfig {
+			members: endowed_accounts
+				.iter()
+				.take((num_endowed_accounts + 1) / 2)
+				.cloned()
+				.collect(),
+			phantom: Default::default(),
+		},
+		technical_membership: Default::default(),
+		vesting: Default::default(),
+		// authority_discovery: AuthorityDiscoveryConfig { keys: vec![] },
 	}
 }
