@@ -4,8 +4,8 @@ use sp_core::{sr25519, Pair, Public};
 use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{IdentifyAccount, Verify};
 use thc_runtime::{
-	AccountId, AuraConfig, BalancesConfig, CouncilConfig, GenesisConfig, GrandpaConfig, Signature,
-	SudoConfig, SystemConfig, TechnicalCommitteeConfig, WASM_BINARY,
+	AccountId, AuraConfig, BalancesConfig, CouncilConfig, DemocracyConfig, GenesisConfig,
+	GrandpaConfig, Signature, SudoConfig, SystemConfig, TechnicalCommitteeConfig, WASM_BINARY,
 };
 
 // The URL for the telemetry server.
@@ -146,6 +146,7 @@ fn testnet_genesis(
 			balances: endowed_accounts.iter().cloned().map(|k| (k, initial_balance)).collect(),
 		},
 		council: CouncilConfig::default(),
+		democracy: DemocracyConfig::default(),
 		grandpa: GrandpaConfig {
 			authorities: initial_authorities.iter().map(|x| (x.1.clone(), 1)).collect(),
 		},
