@@ -25,6 +25,10 @@ version = '3.0.0'
 path = '../runtime'
 version = '4.0.0-dev'
 
+[dependencies.node-primitives]
+path = '../primitives'
+version = '1.0.0'
+
 [dependencies]
 jsonrpc-core = '18.0.0'
 structopt = '0.3.8'
@@ -35,6 +39,11 @@ tag = 'devhub/latest'
 version = '4.0.0-dev'
 
 [dependencies.frame-benchmarking-cli]
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'devhub/latest'
+version = '4.0.0-dev'
+
+[dependencies.pallet-contracts-rpc]
 git = 'https://github.com/paritytech/substrate.git'
 tag = 'devhub/latest'
 version = '4.0.0-dev'

@@ -169,6 +169,7 @@ fn testnet_genesis(
 			phantom: Default::default(),
 		},
 		technical_membership: Default::default(),
+		treasury: Default::default(),
 		vesting: Default::default(),
 		// authority_discovery: AuthorityDiscoveryConfig { keys: vec![] },
 	}
