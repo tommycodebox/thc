@@ -173,7 +173,7 @@ pub fn native_version() -> NativeVersion {
 // 				tips.ration_merge_into(80, 20, &mut split);
 // 			}
 // 			Treasury::on_unbalanced(split.0);
-// 			Author::on_unbalanced(split.1);
+// 			// Author::on_unbalanced(split.1);
 // 		}
 // 	}
 // }
@@ -307,6 +307,17 @@ impl pallet_aura::Config for Runtime {
 	type DisabledValidators = ();
 	type MaxAuthorities = MaxAuthorities;
 }
+
+// parameter_types! {
+// 	pub const UncleGenerations: BlockNumber = 5;
+// }
+
+// impl pallet_authorship::Config for Runtime {
+// 	type FindAuthor = pallet_session::FindAccountFromAuthorIndex<Self, Babe>;
+// 	type UncleGenerations = UncleGenerations;
+// 	type FilterUncle = ();
+// 	type EventHandler = ();
+// }
 
 // Relies on pallet_session
 // impl pallet_authority_discovery::Config for Runtime {
@@ -538,6 +549,18 @@ impl pallet_identity::Config for Runtime {
 }
 
 parameter_types! {
+	pub const IndexDeposit: Balance = 1 * DOLLARS;
+}
+
+impl pallet_indices::Config for Runtime {
+	type AccountIndex = AccountIndex;
+	type Currency = Balances;
+	type Deposit = IndexDeposit;
+	type Event = Event;
+	type WeightInfo = pallet_indices::weights::SubstrateWeight<Runtime>;
+}
+
+parameter_types! {
 	pub MaximumSchedulerWeight: Weight = Perbill::from_percent(80) *
 		RuntimeBlockWeights::get().max_block;
 	pub const MaxScheduledPerBlock: u32 = 50;
@@ -717,9 +740,9 @@ construct_runtime!(
 		Council: pallet_collective::<Instance1>,
 		Grandpa: pallet_grandpa,
 		Identity: pallet_identity,
+		Indices: pallet_indices,
 		// ElectionProviderMultiPhase: pallet_election_provider_multi_phase,
 		// ImOnline: pallet_im_online,
-		// Indices: pallet_indices,
 		// Offences: pallet_offences,
 		// Historical: pallet_session_historical::{Pallet},
 		Nicks: pallet_nicks,
@@ -953,6 +976,7 @@ impl_runtime_apis! {
 			list_benchmark!(list, extra, pallet_bounties, Bounties);
 			list_benchmark!(list, extra, pallet_contracts, Contracts);
 			list_benchmark!(list, extra, pallet_collective, Council);
+			list_benchmark!(list, extra, pallet_democracy, Democracy);
 			list_benchmark!(list, extra, pallet_grandpa, Grandpa);
 			list_benchmark!(list, extra, pallet_identity, Identity);
 			list_benchmark!(list, extra, pallet_membership, TechnicalMembership);
@@ -1001,6 +1025,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_bounties, Bounties);
 			add_benchmark!(params, batches, pallet_contracts, Contracts);
 			add_benchmark!(params, batches, pallet_collective, Council);
+			add_benchmark!(params, batches, pallet_democracy, Democracy);
 			add_benchmark!(params, batches, pallet_grandpa, Grandpa);
 			add_benchmark!(params, batches, pallet_identity, Identity);
 			add_benchmark!(params, batches, pallet_membership, TechnicalMembership);

@@ -5,7 +5,7 @@ use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{IdentifyAccount, Verify};
 use thc_runtime::{
 	AccountId, AuraConfig, BalancesConfig, CouncilConfig, DemocracyConfig, GenesisConfig,
-	GrandpaConfig, Signature, SudoConfig, SystemConfig, TechnicalCommitteeConfig, WASM_BINARY,
+	GrandpaConfig, Signature, SudoConfig, SystemConfig, TechnicalCommitteeConfig, WASM_BINARY, IndicesConfig,
 };
 
 // The URL for the telemetry server.
@@ -150,6 +150,7 @@ fn testnet_genesis(
 		grandpa: GrandpaConfig {
 			authorities: initial_authorities.iter().map(|x| (x.1.clone(), 1)).collect(),
 		},
+		indices: IndicesConfig { indices: vec![] },
 		sudo: SudoConfig {
 			// Assign network admin rights.
 			key: root_key,
